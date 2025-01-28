@@ -1,23 +1,26 @@
 using JetBrains.Annotations;
+using TMPro;
 using UnityEngine;
 
 public class TargetManager : MonoBehaviour
 {
     public GameObject targetPrefab;
     public BoxCollider spawnArea;
+    public TextMeshProUGUI scoreText;
     public int score = 0;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         SpawnTarget();
+        UpdateScoreText();
     }
 
     public void SpawnTarget()
     {
         Vector3 randomPosition = GetRandomPointInBounds(spawnArea.bounds);
 
-        Quaternion uprightRotation = Quaternion.Euler(90, 0, 0);
+        Quaternion uprightRotation = Quaternion.Euler(180, 0, 0);
 
         Instantiate(targetPrefab, randomPosition, uprightRotation);
     }
@@ -25,7 +28,8 @@ public class TargetManager : MonoBehaviour
     public void OnTargetDestroyed()
     {
         score ++;
-        Debug.Log("Score: " + score);
+        UpdateScoreText();
+        //Debug.Log("Score: " + score);
         SpawnTarget();
     }
 
@@ -36,5 +40,13 @@ public class TargetManager : MonoBehaviour
             Random.Range(bounds.min.y, bounds.max.y),
             Random.Range(bounds.min.z, bounds.max.z)
             );
+    }
+
+    public void UpdateScoreText()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + score;
+        }
     }
 }
