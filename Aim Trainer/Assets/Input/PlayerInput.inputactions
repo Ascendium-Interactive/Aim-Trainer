@@ -63,7 +63,7 @@
                     "name": "Shoot",
                     "type": "Button",
                     "id": "e0e70295-e8ef-4c3b-a1a0-91691aa0573d",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
