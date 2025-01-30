@@ -8,9 +8,14 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private float distance = 3f;
     [SerializeField]
-    private LayerMask mask;
+    private LayerMask interactableMask;
+    [SerializeField]
+    private LayerMask targetMask;
     private PlayerUI playerUI;
     private InputManager inputManager;
+
+    private Gun equippedGun; // Stores the equipped gun
+    private bool gunEquipped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,18 +32,42 @@ public class PlayerInteract : MonoBehaviour
         //creates ray from center of camera
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, distance, mask))
+        if (Physics.Raycast(ray, out hitInfo, distance, interactableMask))
         {
-            if(hitInfo.collider.GetComponent<Interactable>() != null)
+            if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
                 playerUI.UpdateText(interactable.promptMessage);
-                if(inputManager.onFoot.Interact.triggered)
+                if (inputManager.onFoot.Interact.triggered)
                 {
                     interactable.BaseInteract();
                 }
             }
         }
-        
+
+        // Shooting logic
+        if (inputManager.onFoot.Shoot.triggered && gunEquipped && equippedGun != null)
+        {
+            ShootGun();
+            equippedGun.Shoot();
+        }
+
+    }
+
+    // Method to set the equipped gun
+    public void SetEquippedGun(Gun gun)
+    {
+        equippedGun = gun;
+        gunEquipped = true;
+    }
+
+    private void ShootGun()
+    {
+        Ray ray = new Ray(cam.transform.position, cam.transform.forward);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, targetMask))
+        {
+            Debug.Log("Doink");
+        }
     }
 }
