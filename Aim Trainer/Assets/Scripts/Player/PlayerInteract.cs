@@ -59,6 +59,7 @@ public class PlayerInteract : MonoBehaviour
     {
         equippedGun = gun;
         gunEquipped = true;
+        interactableMask = 0;
     }
 
     private void ShootGun()
@@ -67,7 +68,14 @@ public class PlayerInteract : MonoBehaviour
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, targetMask))
         {
-            Debug.Log("Doink");
+            if (hitInfo.collider.GetComponent<Target>() != null)
+            {
+                TargetShot target = hitInfo.collider.GetComponent<Target>();
+                if (inputManager.onFoot.Shoot.triggered)
+                {
+                    target.BaseShoot();
+                }
+            }
         }
     }
 }

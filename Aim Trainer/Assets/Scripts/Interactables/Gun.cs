@@ -1,15 +1,16 @@
 using UnityEngine;
 
-public class Gun : Interactable
+public class Gun : Interactable 
 {
     [SerializeField]
     private Transform equipPoint;
     private bool isEquipped = false;
+    public Target target;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        target = GetComponent<Target>();
     }
 
     // Update is called once per frame
