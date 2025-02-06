@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useEvents: 0
-  promptMessage: 
+  targetManager: {fileID: 0}
 --- !u!64 &1129910887562023417
 MeshCollider:
   m_ObjectHideFlags: 0

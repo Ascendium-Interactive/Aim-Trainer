@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class Target : Interactable
+public class Target : TargetShot
 {
 
-    private TargetManager targetManager;
+    public TargetManager targetManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,7 +23,7 @@ public class Target : Interactable
         
     }
 
-    protected override void Interact()
+    protected override void ShootTarget()
     {
         if (targetManager != null)
         {

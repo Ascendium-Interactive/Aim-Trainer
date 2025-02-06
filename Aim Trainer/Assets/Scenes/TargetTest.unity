@@ -93,8 +93,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 6e529c5e8df65d44da0db22e7f64ea3e, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 57e158ee57e63164faf9531595767213, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -314,10 +314,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44c65635fe18b949beaa4826e8cb415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 100
-  mask:
+  distance: 5
+  interactableMask:
     serializedVersion: 2
     m_Bits: 64
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &329504013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,8 +622,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.81
+  m_Color: {r: 1, g: 0.9731942, b: 0.8915094, a: 1}
+  m_Intensity: 0.48
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1407,8 +1410,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 17.881367, y: 6.476029, z: 22.051826}
-  m_Center: {x: 0.25382662, y: -0.97660136, z: 2.0903873}
+  m_Size: {x: 17.418793, y: 6.476029, z: 22.051826}
+  m_Center: {x: 0.022538662, y: -0.97660136, z: 2.0903873}
 --- !u!4 &1355719877
 Transform:
   m_ObjectHideFlags: 0
@@ -1969,6 +1972,14 @@ PrefabInstance:
       value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 5933945087147095172, guid: 61a429891a39528498895e4830ce1980, type: 3}
+      propertyPath: equipPoint
+      value: 
+      objectReference: {fileID: 1113035089}
+    - target: {fileID: 6628602004004637888, guid: 61a429891a39528498895e4830ce1980, type: 3}
+      propertyPath: useEvents
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628602004004637888, guid: 61a429891a39528498895e4830ce1980, type: 3}
       propertyPath: equipPoint
       value: 
       objectReference: {fileID: 1113035089}
