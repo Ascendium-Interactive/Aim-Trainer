@@ -7,13 +7,21 @@ public class TargetManager : MonoBehaviour
     public GameObject targetPrefab;
     public BoxCollider spawnArea;
     public TextMeshProUGUI scoreText;
-    public int score = 0;
+    public TextMeshProUGUI pointsText;
+    public int scoreCount = 0;
+    public int scorePoints = 0;
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         SpawnTarget();
         UpdateScoreText();
+    }
+
+    public void AddScore(int points)
+    {
+        scorePoints += points;
     }
 
     public void SpawnTarget()
@@ -27,9 +35,10 @@ public class TargetManager : MonoBehaviour
 
     public void OnTargetDestroyed()
     {
-        score ++;
+        scoreCount ++;
         UpdateScoreText();
         //Debug.Log("Score: " + score);
+        Debug.Log("Points: " + scorePoints);
         SpawnTarget();
     }
 
@@ -46,7 +55,12 @@ public class TargetManager : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + score;
+            scoreText.text = "Score: " + scoreCount;
+        }
+
+        if (pointsText != null)
+        {
+            pointsText.text = "Points: " + scorePoints;
         }
     }
 }
