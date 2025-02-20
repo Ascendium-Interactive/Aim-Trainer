@@ -48,7 +48,7 @@ public class TimedMode : IGameMode
     {
         isGameActive = false;
         Debug.Log("Timer Mode Ended!");
-
+        GameModeManager.Instance.targetManager.gameObject.SetActive(false);
     }
 
     private void StartGame()
@@ -56,7 +56,7 @@ public class TimedMode : IGameMode
         Debug.Log("GO! Game Started!");
         isCountdownActive = false;
         isGameActive = true;
-        //GameModeManager.Instance.targetManager.StartSpawning();
+        GameModeManager.Instance.targetManager.gameObject.SetActive(true);
     }
 
 }

@@ -4,6 +4,11 @@ public class Target : TargetShot
 {
 
     public TargetManager targetManager;
+
+    public int maxPoints = 10;
+    public int minPoints = 1;
+    private float maxRadius = .9f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,5 +36,18 @@ public class Target : TargetShot
         }
         //Debug.Log("Interacted with " + gameObject.name);
         Destroy(gameObject);
+    }
+
+    public int GetScore(Vector3 hitPoint)
+    {
+        float distance = Vector3.Distance(hitPoint, transform.position);
+
+        if (distance > maxRadius)
+        {
+            return minPoints;
+        }
+
+        float t = Mathf.InverseLerp(maxRadius, 0, distance);
+        return Mathf.RoundToInt(Mathf.Lerp(minPoints, maxPoints, t));
     }
 }

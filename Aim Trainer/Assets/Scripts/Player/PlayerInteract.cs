@@ -66,11 +66,24 @@ public class PlayerInteract : MonoBehaviour
     {
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         RaycastHit hitInfo;
+
         if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, targetMask))
         {
-            if (hitInfo.collider.GetComponent<Target>() != null)
+            Target target = hitInfo.collider.GetComponent<Target>();
+
+            if (target != null)
             {
-                TargetShot target = hitInfo.collider.GetComponent<Target>();
+                // Calculate score based on hit position
+                int score = target.GetScore(hitInfo.point);
+
+                // Find TargetManager and update score
+                TargetManager targetManager = FindAnyObjectByType<TargetManager>();
+                if (targetManager != null)
+                {
+                    targetManager.AddScore(score);
+                }
+
+                TargetShot targetShot = hitInfo.collider.GetComponent<Target>();
                 if (inputManager.onFoot.Shoot.triggered)
                 {
                     target.BaseShoot();

@@ -41,14 +41,13 @@ public class MovingMode : IGameMode
         isCountdownActive = true;
         countdownTime = 3f;
         gameTime = 60f;
-        //call GameModeManager.Instance.targetSpawner.StartSpawning() here, for example.
     }
 
     public void EndMode() // Handles cleanup/reset when the mode ends.
     {
         isGameActive = false;
         Debug.Log("Moving Mode Ended!");
-
+        GameModeManager.Instance.targetManager.gameObject.SetActive(false);
     }
 
     private void StartGame()
@@ -56,6 +55,6 @@ public class MovingMode : IGameMode
         Debug.Log("GO! Game Started!");
         isCountdownActive = false;
         isGameActive = true;
-        //GameModeManager.Instance.targetManager.StartSpawning();
+        GameModeManager.Instance.targetManager.gameObject.SetActive(true);
     }
 }
