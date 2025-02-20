@@ -78,6 +78,7 @@ public class GameModeManager : MonoBehaviour
 
     public void StartCurrentGameMode()
     {
-        currentGameMode.StartMode();
+        Debug.Log("Target Spawn");
+
     }
 }

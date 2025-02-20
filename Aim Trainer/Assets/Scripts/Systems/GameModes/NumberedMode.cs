@@ -43,7 +43,7 @@ public class NumberedMode : IGameMode
     {
         isGameActive = false;
         Debug.Log("Numbered Mode Ended!");
-
+        GameModeManager.Instance.targetManager.gameObject.SetActive(false);
     }
 
     private void StartGame()
@@ -51,6 +51,6 @@ public class NumberedMode : IGameMode
         Debug.Log("GO! Game Started!");
         isCountdownActive = false;
         isGameActive = true;
-        //GameModeManager.Instance.targetManager.StartSpawning();
+        GameModeManager.Instance.targetManager.gameObject.SetActive(true);
     }
 }
