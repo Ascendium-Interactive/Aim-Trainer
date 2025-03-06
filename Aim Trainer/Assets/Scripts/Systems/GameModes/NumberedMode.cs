@@ -6,7 +6,7 @@ public class NumberedMode : IGameMode
     private float countdownTime = 3f; // Pre-game countdown
     private bool isCountdownActive = false;
     private bool isGameActive = false;
-
+    private int targetLimit = 20;
     public void Update()
     {
         if (isCountdownActive)
@@ -24,9 +24,11 @@ public class NumberedMode : IGameMode
         else if (isGameActive)
         {
             gameTime += Time.deltaTime;
-
-            Debug.Log($"Time Left: {Mathf.CeilToInt(gameTime)}");
-            
+            //Debug.Log($"Time Left: {Mathf.CeilToInt(gameTime)}");
+        }
+        if (GameModeManager.Instance.targetManager.scoreCount == targetLimit && isGameActive)
+        {
+            EndMode();
         }
     }
 
@@ -35,7 +37,7 @@ public class NumberedMode : IGameMode
         Debug.Log("Numbered Mode Started!");
         isCountdownActive = true;
         countdownTime = 3f;
-        gameTime = 60f;
+        gameTime = 0f;
         //call GameModeManager.Instance.targetSpawner.StartSpawning() here, for example.
     }
 
