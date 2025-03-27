@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Ak47 : Interactable
+public class Gun : Interactable 
 {
     [SerializeField]
     private Transform equipPoint;
     private bool isEquipped = false;
+    public Target target;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        target = GetComponent<Target>();
     }
 
     // Update is called once per frame
@@ -19,6 +18,7 @@ public class Ak47 : Interactable
     {
 
     }
+
     protected override void Interact()
     {
         if (!isEquipped)
@@ -29,8 +29,23 @@ public class Ak47 : Interactable
             transform.localRotation = Quaternion.identity;
 
             isEquipped = true;
+
+            // Get reference to PlayerInteract
+            PlayerInteract playerInteract = FindFirstObjectByType<PlayerInteract>(); // Ensures the player exists
+            if (playerInteract != null)
+            {
+                playerInteract.SetEquippedGun(this);
+            }
         }
 
         Debug.Log("Interacted with " + gameObject.name);
+    }
+
+    public void Shoot()
+    {
+        if (isEquipped)
+        {
+            //Call to audio and animation animator.play("shoot");
+        }
     }
 }

@@ -8,9 +8,14 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField]
     private float distance = 3f;
     [SerializeField]
-    private LayerMask mask;
+    private LayerMask interactableMask;
+    [SerializeField]
+    private LayerMask targetMask;
     private PlayerUI playerUI;
     private InputManager inputManager;
+
+    private Gun equippedGun; // Stores the equipped gun
+    private bool gunEquipped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,18 +32,63 @@ public class PlayerInteract : MonoBehaviour
         //creates ray from center of camera
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, distance, mask))
+        if (Physics.Raycast(ray, out hitInfo, distance, interactableMask))
         {
-            if(hitInfo.collider.GetComponent<Interactable>() != null)
+            if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
                 playerUI.UpdateText(interactable.promptMessage);
-                if(inputManager.onFoot.Interact.triggered)
+                if (inputManager.onFoot.Interact.triggered)
                 {
                     interactable.BaseInteract();
                 }
             }
         }
-        
+
+        // Shooting logic
+        if (inputManager.onFoot.Shoot.triggered && gunEquipped && equippedGun != null)
+        {
+            ShootGun();
+            equippedGun.Shoot();
+        }
+
+    }
+
+    // Method to set the equipped gun
+    public void SetEquippedGun(Gun gun)
+    {
+        equippedGun = gun;
+        gunEquipped = true;
+        interactableMask = 0;
+    }
+
+    private void ShootGun()
+    {
+        Ray ray = new Ray(cam.transform.position, cam.transform.forward);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, targetMask))
+        {
+            Target target = hitInfo.collider.GetComponent<Target>();
+
+            if (target != null)
+            {
+                // Calculate score based on hit position
+                int score = target.GetScore(hitInfo.point);
+
+                // Find TargetManager and update score
+                TargetManager targetManager = FindAnyObjectByType<TargetManager>();
+                if (targetManager != null)
+                {
+                    targetManager.AddScore(score);
+                }
+
+                TargetShot targetShot = hitInfo.collider.GetComponent<Target>();
+                if (inputManager.onFoot.Shoot.triggered)
+                {
+                    target.BaseShoot();
+                }
+            }
+        }
     }
 }

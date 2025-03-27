@@ -7,6 +7,7 @@ public class PlayerUI : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI promptText;
+    public TextMeshProUGUI score;
     // Start is called before the first frame update
     void Start()
     {
